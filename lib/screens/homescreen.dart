@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:translator/sevices/pick_image.dart';
 
 import '../appbar.dart';
 import '../const.dart';
@@ -38,9 +39,12 @@ class HomeScreen extends StatelessWidget {
 
   //capture button
   Center buildCaptureButton() {
+    Capture capture = Capture();
     return Center(
       child: GestureDetector(
-        onTap: () {},
+        onTap: () async {
+          await capture.getImage();
+        },
         child: Material(
           elevation: 8,
           borderRadius: BorderRadius.circular(30),
