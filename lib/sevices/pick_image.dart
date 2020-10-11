@@ -8,7 +8,8 @@ class Capture {
   final picker = ImagePicker();
 
   Future<CapturedImage> getImage() async {
-    final pickedFile = await picker.getImage(source: ImageSource.camera);
+    final pickedFile =
+        await picker.getImage(source: ImageSource.camera, imageQuality: 50);
 
     if (pickedFile != null) {
       image = File(pickedFile.path);

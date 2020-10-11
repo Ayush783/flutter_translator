@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:translator/models/image.dart';
+import 'package:translator/screens/translate_screen.dart';
 import 'package:translator/sevices/pick_image.dart';
 
 import '../appbar.dart';
@@ -13,7 +15,7 @@ class HomeScreen extends StatelessWidget {
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          buildCaptureButton(),
+          buildCaptureButton(context),
           Padding(padding: EdgeInsets.only(top: 20)),
           Text(
             'Capture Image',
@@ -38,12 +40,19 @@ class HomeScreen extends StatelessWidget {
   }
 
   //capture button
-  Center buildCaptureButton() {
+  Center buildCaptureButton(BuildContext context) {
     Capture capture = Capture();
     return Center(
       child: GestureDetector(
         onTap: () async {
-          await capture.getImage();
+          final CapturedImage image = await capture.getImage();
+          if (image.error == '') {
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => TranslateScreen(image: image.image),
+                ));
+          }
         },
         child: Material(
           elevation: 8,
