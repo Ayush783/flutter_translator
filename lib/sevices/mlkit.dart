@@ -1,0 +1,3 @@
+class MLKit {
+  recogniseText() {}
+}
