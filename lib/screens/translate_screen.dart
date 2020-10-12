@@ -20,10 +20,14 @@ class _TranslateScreenState extends State<TranslateScreen> {
   int _value = 1;
   @override
   Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
     return Scaffold(
       appBar: appbar,
       body: Padding(
-        padding: EdgeInsets.only(left: 30, right: 30, top: 30, bottom: 20),
+        padding: EdgeInsets.only(
+            left: size.width / 12,
+            right: size.width / 12,
+            top: size.width / 12),
         child: Column(
           children: [
             Center(
@@ -41,23 +45,25 @@ class _TranslateScreenState extends State<TranslateScreen> {
               ),
             ),
             Padding(
-              padding: EdgeInsets.only(top: 20),
+              padding: EdgeInsets.only(top: size.height / 32),
             ),
             TextAreaWidget(
+                size: size,
                 text:
                     'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam metus lorem, egestas id orci sit amet, ullamcorper porta arcu. Donec non lectus pretium, laoreet arcu in, cursus felis. Suspendisse a rhoncus ex. In ac lectus nec elit fermentum elementum et vitae sem. Morbi eu metus leo.'),
             Padding(
-              padding: EdgeInsets.only(top: 20),
+              padding: EdgeInsets.only(top: size.height / 32),
             ),
-            buildSelectLanguageDropDown(),
+            buildSelectLanguageDropDown(size),
             Padding(
-              padding: EdgeInsets.only(top: 20),
+              padding: EdgeInsets.only(top: size.height / 32),
             ),
-            buildTranslateButton(),
+            buildTranslateButton(size),
             Padding(
-              padding: EdgeInsets.only(top: 20),
+              padding: EdgeInsets.only(top: size.height / 32),
             ),
             TextAreaWidget(
+                size: size,
                 text:
                     "Lorem ipsum dolor sit amet, consectetur adipiscing elit. It also fears lorem want to clinical carrots, notebook gate alcohol. Until he graduated price, Laoreet throws in the cycle button. For users of the CNN of the. In the warm-up element, and this life, and the lectus nec elit sem. An alarm clock soccer lion.")
           ],
@@ -66,13 +72,14 @@ class _TranslateScreenState extends State<TranslateScreen> {
     );
   }
 
-  GestureDetector buildTranslateButton() {
+  GestureDetector buildTranslateButton(Size size) {
     return GestureDetector(
       child: Material(
         elevation: 4,
         borderRadius: BorderRadius.circular(10),
         child: Container(
-          padding: EdgeInsets.symmetric(horizontal: 30, vertical: 10),
+          padding: EdgeInsets.symmetric(
+              horizontal: size.width / 12, vertical: size.height / 64),
           decoration: BoxDecoration(
             color: primaryColor,
             borderRadius: BorderRadius.circular(10),
@@ -86,19 +93,19 @@ class _TranslateScreenState extends State<TranslateScreen> {
     );
   }
 
-  Container buildSelectLanguageDropDown() {
+  Container buildSelectLanguageDropDown(Size size) {
     return Container(
-      width: 100,
+      width: size.width / 3.6,
       child: DropdownButton(
           dropdownColor: Colors.white,
           style: primary.copyWith(color: primaryColor),
           underline: Container(color: primaryColor, height: 2),
           icon: SvgPicture.asset(
             'icons/drop_down.svg',
-            height: 32,
-            width: 32,
+            height: size.width / 12,
+            width: size.width / 12,
           ),
-          iconSize: 32,
+          iconSize: size.width / 12,
           isExpanded: true,
           value: _value,
           items: languages,

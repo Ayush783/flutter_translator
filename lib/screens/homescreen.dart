@@ -10,13 +10,16 @@ import '../const.dart';
 class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
     return Scaffold(
       appBar: appbar,
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          buildCaptureButton(context),
-          Padding(padding: EdgeInsets.only(top: 20)),
+          buildCaptureButton(context, size),
+          Padding(
+            padding: EdgeInsets.only(top: size.height / 32),
+          ),
           Text(
             'Capture Image',
             style: TextStyle(
@@ -25,9 +28,9 @@ class HomeScreen extends StatelessWidget {
               color: primaryColor,
             ),
           ),
-          Padding(padding: EdgeInsets.only(top: 25)),
+          Padding(padding: EdgeInsets.only(top: size.height / 27)),
           Padding(
-            padding: EdgeInsets.symmetric(horizontal: 20),
+            padding: EdgeInsets.symmetric(horizontal: size.width / 18),
             child: Text(
               'NOTE: Try to take a clear picture of the text to be translated',
               style: TextStyle(fontSize: 12),
@@ -40,7 +43,7 @@ class HomeScreen extends StatelessWidget {
   }
 
   //capture button
-  Center buildCaptureButton(BuildContext context) {
+  Center buildCaptureButton(BuildContext context, Size size) {
     Capture capture = Capture();
     return Center(
       child: GestureDetector(
@@ -56,17 +59,17 @@ class HomeScreen extends StatelessWidget {
         },
         child: Material(
           elevation: 8,
-          borderRadius: BorderRadius.circular(30),
+          borderRadius: BorderRadius.circular(size.width / 12),
           child: Container(
-              height: 60,
-              width: 60,
+              height: size.height / 11,
+              width: size.width / 6,
               decoration: BoxDecoration(
                   color: primaryColor, borderRadius: BorderRadius.circular(30)),
               child: Center(
                 child: SvgPicture.asset(
                   'icons/capture.svg',
-                  height: 40,
-                  width: 40,
+                  height: size.width / 9,
+                  width: size.width / 9,
                 ),
               )),
         ),
