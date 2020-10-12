@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:bitmap/bitmap.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:translator/widgets/text_area_widget.dart';
@@ -18,6 +19,17 @@ class TranslateScreen extends StatefulWidget {
 
 class _TranslateScreenState extends State<TranslateScreen> {
   int _value = 1;
+  Bitmap bitmap;
+  @override
+  void initState() {
+    super.initState();
+    convertImageToBitmap();
+  }
+
+  convertImageToBitmap() async {
+    bitmap = await Bitmap.fromProvider(FileImage(widget.image));
+  }
+
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
