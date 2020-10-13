@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:translator/sevices/mlkit.dart';
 import 'package:translator/widgets/text_area_widget.dart';
 
 import '../appbar.dart';
@@ -18,6 +19,14 @@ class TranslateScreen extends StatefulWidget {
 
 class _TranslateScreenState extends State<TranslateScreen> {
   int _value = 1;
+  MLKit api = MLKit();
+  Future<String> recognisedText;
+
+  @override
+  void initState() {
+    super.initState();
+    recognisedText = api.recogniseText(widget.image);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -48,10 +57,20 @@ class _TranslateScreenState extends State<TranslateScreen> {
             Padding(
               padding: EdgeInsets.only(top: size.height / 32),
             ),
-            TextAreaWidget(
-                size: size,
-                text:
-                    'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam metus lorem, egestas id orci sit amet, ullamcorper porta arcu. Donec non lectus pretium, laoreet arcu in, cursus felis. Suspendisse a rhoncus ex. In ac lectus nec elit fermentum elementum et vitae sem. Morbi eu metus leo.'),
+            FutureBuilder(
+              future: recognisedText,
+              builder: (context, snapshot) {
+                if (snapshot.connectionState == ConnectionState.done) {
+                  print(snapshot.data);
+                  return TextAreaWidget(
+                    size: size,
+                    text: snapshot.data,
+                  );
+                } else {
+                  return Text('');
+                }
+              },
+            ),
             Padding(
               padding: EdgeInsets.only(top: size.height / 32),
             ),
