@@ -1,8 +1,9 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:translator/sevices/mlkit.dart';
+import 'package:translator/bloc/bloc_bloc.dart';
 import 'package:translator/widgets/text_area_widget.dart';
 
 import '../appbar.dart';
@@ -19,13 +20,13 @@ class TranslateScreen extends StatefulWidget {
 
 class _TranslateScreenState extends State<TranslateScreen> {
   int _value = 1;
-  MLKit api = MLKit();
-  Future<String> recognisedText;
-
+  String _recognisedText;
+  // ignore: close_sinks
+  final bloc = BlocBloc();
   @override
   void initState() {
     super.initState();
-    recognisedText = api.recogniseText(widget.image);
+    bloc.add(RecogniseText(widget.image));
   }
 
   @override
@@ -33,61 +34,62 @@ class _TranslateScreenState extends State<TranslateScreen> {
     final size = MediaQuery.of(context).size;
     return Scaffold(
       appBar: appbar,
-      body: Padding(
-        padding: EdgeInsets.only(
-            left: size.width / 12,
-            right: size.width / 12,
-            top: size.width / 12),
-        child: Column(
-          children: [
-            Center(
-              child: Text.rich(
-                TextSpan(
-                    text: 'Recognised Text\n',
-                    style: primary.copyWith(color: primaryColor),
-                    children: [
-                      TextSpan(
-                          text: 'Language: Latin',
-                          style: primary.copyWith(
-                              fontSize: 12, color: Colors.black))
-                    ]),
-                textAlign: TextAlign.center,
-              ),
+      body: BlocBuilder<BlocBloc, BlocState>(
+        cubit: bloc,
+        builder: (context, state) {
+          if (state is BlocLoading)
+            return Center(child: CircularProgressIndicator());
+          else if (state is BlocRecognisedText) {
+            _recognisedText = state.text;
+            return buildBody(size);
+          } else
+            return Center(
+              child: Text('Retry'),
+            );
+        },
+      ),
+    );
+  }
+
+  Padding buildBody(Size size) {
+    return Padding(
+      padding: EdgeInsets.only(
+          left: size.width / 12, right: size.width / 12, top: size.width / 12),
+      child: Column(
+        children: [
+          Center(
+            child: Text.rich(
+              TextSpan(
+                  text: 'Recognised Text\n',
+                  style: primary.copyWith(color: primaryColor),
+                  children: [
+                    TextSpan(
+                        text: 'Language: Latin',
+                        style:
+                            primary.copyWith(fontSize: 12, color: Colors.black))
+                  ]),
+              textAlign: TextAlign.center,
             ),
-            Padding(
-              padding: EdgeInsets.only(top: size.height / 32),
-            ),
-            FutureBuilder(
-              future: recognisedText,
-              builder: (context, snapshot) {
-                if (snapshot.connectionState == ConnectionState.done) {
-                  print(snapshot.data);
-                  return TextAreaWidget(
-                    size: size,
-                    text: snapshot.data,
-                  );
-                } else {
-                  return Text('');
-                }
-              },
-            ),
-            Padding(
-              padding: EdgeInsets.only(top: size.height / 32),
-            ),
-            buildSelectLanguageDropDown(size),
-            Padding(
-              padding: EdgeInsets.only(top: size.height / 32),
-            ),
-            buildTranslateButton(size),
-            Padding(
-              padding: EdgeInsets.only(top: size.height / 32),
-            ),
-            TextAreaWidget(
-                size: size,
-                text:
-                    "Lorem ipsum dolor sit amet, consectetur adipiscing elit. It also fears lorem want to clinical carrots, notebook gate alcohol. Until he graduated price, Laoreet throws in the cycle button. For users of the CNN of the. In the warm-up element, and this life, and the lectus nec elit sem. An alarm clock soccer lion.")
-          ],
-        ),
+          ),
+          Padding(
+            padding: EdgeInsets.only(top: size.height / 32),
+          ),
+          TextAreaWidget(
+            size: size,
+            text: _recognisedText,
+          ),
+          Padding(
+            padding: EdgeInsets.only(top: size.height / 32),
+          ),
+          buildSelectLanguageDropDown(size),
+          Padding(
+            padding: EdgeInsets.only(top: size.height / 32),
+          ),
+          buildTranslateButton(size),
+          Padding(
+            padding: EdgeInsets.only(top: size.height / 32),
+          ),
+        ],
       ),
     );
   }
