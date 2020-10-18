@@ -20,8 +20,9 @@ class BlocBloc extends Bloc<BlocEvent, BlocState> {
     yield BlocInitial();
     if (event is RecogniseText) {
       yield BlocLoading();
-      final text = await mlKit.recogniseText(event.image);
-      yield BlocRecognisedText(text);
+      final textResponse = await mlKit.recogniseText(event.image);
+      print(textResponse.languages);
+      yield BlocRecognisedText(textResponse.text);
     }
   }
 }

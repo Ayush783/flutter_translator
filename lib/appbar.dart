@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
+// import 'package:flutter_svg/flutter_svg.dart';
 import 'package:translator/const.dart';
 
 AppBar appbar = AppBar(
@@ -9,12 +9,12 @@ AppBar appbar = AppBar(
     style: primary,
   ),
   centerTitle: true,
-  actions: [
-    SvgPicture.asset(
-      'icons/settings.svg',
-      height: 22,
-      width: 22,
-    ),
-    Padding(padding: EdgeInsets.only(right: 20))
-  ],
+  // actions: [
+  //   SvgPicture.asset(
+  //     'icons/settings.svg',
+  //     height: 22,
+  //     width: 22,
+  //   ),
+  //   Padding(padding: EdgeInsets.only(right: 20))
+  // ],
 );
