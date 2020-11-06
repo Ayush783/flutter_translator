@@ -41,7 +41,7 @@ class _TranslateScreenState extends State<TranslateScreen> {
             return Center(child: CircularProgressIndicator());
           else if (state is BlocRecognisedText) {
             _recognisedText = state.text;
-            return buildBody(size);
+            return buildBody(size, state);
           } else
             return Center(
               child: Text('Retry'),
@@ -51,7 +51,7 @@ class _TranslateScreenState extends State<TranslateScreen> {
     );
   }
 
-  Padding buildBody(Size size) {
+  Padding buildBody(Size size, BlocRecognisedText state) {
     return Padding(
       padding: EdgeInsets.only(
           left: size.width / 12, right: size.width / 12, top: size.width / 12),
@@ -64,7 +64,7 @@ class _TranslateScreenState extends State<TranslateScreen> {
                   style: primary.copyWith(color: primaryColor),
                   children: [
                     TextSpan(
-                        text: 'Language: Latin',
+                        text: 'Language: ${state.language}',
                         style:
                             primary.copyWith(fontSize: 12, color: Colors.black))
                   ]),
@@ -117,7 +117,7 @@ class _TranslateScreenState extends State<TranslateScreen> {
 
   Container buildSelectLanguageDropDown(Size size) {
     return Container(
-      width: size.width / 3.6,
+      width: size.width / 2.5,
       child: DropdownButton(
           dropdownColor: Colors.white,
           style: primary.copyWith(color: primaryColor),
