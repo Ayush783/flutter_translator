@@ -12,7 +12,11 @@ class BlocInitial extends BlocState {}
 class BlocLoading extends BlocState {}
 
 class BlocRecognisedText extends BlocState {
-  final String text;
+  final String text, language, languageCode;
 
-  BlocRecognisedText(this.text);
+  BlocRecognisedText(
+    this.text,
+    this.language,
+    this.languageCode,
+  );
 }
