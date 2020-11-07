@@ -7,14 +7,8 @@ abstract class TranslatorEvent extends Equatable {
   List<Object> get props => [];
 }
 
-class RecogniseText extends TranslatorEvent {
-  final File image;
-
-  RecogniseText(this.image);
-}
-
 class TranslateText extends TranslatorEvent {
-  final String text, langCode;
+  final String text, fromLangCode, tolangCode;
 
-  TranslateText(this.text, this.langCode);
+  TranslateText(this.text, this.fromLangCode, this.tolangCode);
 }

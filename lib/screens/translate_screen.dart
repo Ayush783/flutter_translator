@@ -3,8 +3,10 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:flutter_translator/bloc/translator_bloc.dart';
+import 'package:flutter_translator/bloc/recognise_text_bloc/recognisetext_bloc.dart';
+import 'package:flutter_translator/bloc/translate_bloc/translator_bloc.dart';
 import 'package:flutter_translator/widgets/text_area_widget.dart';
+import 'package:flutter_translator/widgets/translate_button.dart';
 
 import '../appbar.dart';
 import '../const.dart';
@@ -19,39 +21,43 @@ class TranslateScreen extends StatefulWidget {
 }
 
 class _TranslateScreenState extends State<TranslateScreen> {
-  int _value = 1;
-  String _recognisedText;
-  // ignore: close_sinks
-  final bloc = TranslatorBloc();
-  @override
-  void initState() {
-    super.initState();
-    bloc.add(RecogniseText(widget.image));
-  }
+  int _value = 0;
 
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
-    return Scaffold(
-      appBar: appbar,
-      body: BlocBuilder<TranslatorBloc, TranslatorState>(
-        cubit: bloc,
-        builder: (context, state) {
-          if (state is TranslatorLoading)
-            return Center(child: CircularProgressIndicator());
-          else if (state is TranslatorRecognisedText) {
-            _recognisedText = state.text;
-            return buildBody(size, state);
-          } else
-            return Center(
-              child: Text('Retry'),
-            );
-        },
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider<RecogniseTextBloc>(
+          create: (context) => RecogniseTextBloc()
+            ..add(
+              RecogniseText(widget.image),
+            ),
+        ),
+        BlocProvider(
+          create: (context) => TranslatorBloc(),
+        )
+      ],
+      child: Scaffold(
+        appBar: appbar,
+        body: BlocBuilder<RecogniseTextBloc, RecogniseTextState>(
+          builder: (context, state) {
+            if (state is RecognisingText)
+              return Center(child: CircularProgressIndicator());
+            else if (state is RecognisedText)
+              return buildBody(size, state);
+            else {
+              return Center(
+                child: Text('Retry'),
+              );
+            }
+          },
+        ),
       ),
     );
   }
 
-  Padding buildBody(Size size, TranslatorRecognisedText state) {
+  Padding buildBody(Size size, RecognisedText state) {
     return Padding(
       padding: EdgeInsets.only(
           left: size.width / 12, right: size.width / 12, top: size.width / 12),
@@ -74,9 +80,10 @@ class _TranslateScreenState extends State<TranslateScreen> {
           Padding(
             padding: EdgeInsets.only(top: size.height / 32),
           ),
+          //recognised text placeholder
           TextAreaWidget(
             size: size,
-            text: _recognisedText,
+            text: state.text,
           ),
           Padding(
             padding: EdgeInsets.only(top: size.height / 32),
@@ -85,32 +92,17 @@ class _TranslateScreenState extends State<TranslateScreen> {
           Padding(
             padding: EdgeInsets.only(top: size.height / 32),
           ),
-          buildTranslateButton(size),
+          //translate button
+          TranslateButton(
+            size: size,
+            text: state.text,
+            fromLangCode: state.languageCode,
+            tolangCode: 'ru',
+          ),
           Padding(
             padding: EdgeInsets.only(top: size.height / 32),
           ),
         ],
-      ),
-    );
-  }
-
-  GestureDetector buildTranslateButton(Size size) {
-    return GestureDetector(
-      child: Material(
-        elevation: 4,
-        borderRadius: BorderRadius.circular(10),
-        child: Container(
-          padding: EdgeInsets.symmetric(
-              horizontal: size.width / 12, vertical: size.height / 64),
-          decoration: BoxDecoration(
-            color: primaryColor,
-            borderRadius: BorderRadius.circular(10),
-          ),
-          child: Text(
-            'Translate',
-            style: primary.copyWith(color: Colors.white),
-          ),
-        ),
       ),
     );
   }

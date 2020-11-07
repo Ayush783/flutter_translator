@@ -5,6 +5,7 @@ import 'package:flutter_language_identification/flutter_language_identification.
 import 'package:flutter_translator/models/language_response.dart';
 import 'package:flutter_translator/models/text_response.dart';
 import 'package:flutter_translator/models/supported_languages.dart';
+import 'package:flutter_translator/models/translation_response.dart';
 import 'package:translator/translator.dart';
 
 class MLKit {
@@ -34,7 +35,15 @@ class MLKit {
     return LanguageResponse(_lang, supportedLanguages[_lang.toString()], '');
   }
 
-  Future translateText(String text, String fromLangCode, String toLangCode) {
+  Future<TranslatedText> translateText(
+      String text, String fromLangCode, String toLangCode) async {
+    print('\n\n\n1');
     final translator = GoogleTranslator();
+    print('\n\n\n1');
+    final Translation translatedText =
+        await translator.translate(text, from: fromLangCode, to: toLangCode);
+    print('\n\n\n1');
+    print(translatedText.text);
+    return TranslatedText(translatedText.text, '');
   }
 }

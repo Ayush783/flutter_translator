@@ -3,8 +3,8 @@ class LanguageResponse {
 
   LanguageResponse(this.languageCode, this.language, this.error);
 
-  LanguageResponse.fromError()
+  LanguageResponse.fromError(String error)
       : languageCode = 'none',
         language = 'none',
-        error = 'error';
+        error = error;
 }
