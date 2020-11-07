@@ -21,7 +21,7 @@ class TranslateScreen extends StatefulWidget {
 }
 
 class _TranslateScreenState extends State<TranslateScreen> {
-  int _value = 0;
+  String _value = 'en';
 
   @override
   Widget build(BuildContext context) {
@@ -97,7 +97,7 @@ class _TranslateScreenState extends State<TranslateScreen> {
             size: size,
             text: state.text,
             fromLangCode: state.languageCode,
-            tolangCode: 'ru',
+            tolangCode: _value,
           ),
           Padding(
             padding: EdgeInsets.only(top: size.height / 32),
@@ -110,7 +110,7 @@ class _TranslateScreenState extends State<TranslateScreen> {
   Container buildSelectLanguageDropDown(Size size) {
     return Container(
       width: size.width / 2.5,
-      child: DropdownButton(
+      child: DropdownButton<String>(
           dropdownColor: Colors.white,
           style: primary.copyWith(color: primaryColor),
           underline: Container(color: primaryColor, height: 2),

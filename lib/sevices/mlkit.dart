@@ -37,12 +37,9 @@ class MLKit {
 
   Future<TranslatedText> translateText(
       String text, String fromLangCode, String toLangCode) async {
-    print('\n\n\n1');
     final translator = GoogleTranslator();
-    print('\n\n\n1');
     final Translation translatedText =
         await translator.translate(text, from: fromLangCode, to: toLangCode);
-    print('\n\n\n1');
     print(translatedText.text);
     return TranslatedText(translatedText.text, '');
   }

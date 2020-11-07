@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:io';
 
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
@@ -22,7 +21,6 @@ class TranslatorBloc extends Bloc<TranslatorEvent, TranslatorState> {
       yield TranslatorTranslatingInProgress();
       final translateResponse = await mlKit.translateText(
           event.text, event.fromLangCode, event.tolangCode);
-      print('\n\n\n1');
       yield TranslatorTranslatedText(translateResponse.text);
     }
   }
