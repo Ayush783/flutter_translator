@@ -7,6 +7,7 @@ import 'package:flutter_translator/bloc/recognise_text_bloc/recognisetext_bloc.d
 import 'package:flutter_translator/bloc/translate_bloc/translator_bloc.dart';
 import 'package:flutter_translator/widgets/text_area_widget.dart';
 import 'package:flutter_translator/widgets/translate_button.dart';
+import 'package:flutter_translator/widgets/translated_text_placeholder.dart';
 
 import '../appbar.dart';
 import '../const.dart';
@@ -86,7 +87,7 @@ class _TranslateScreenState extends State<TranslateScreen> {
             text: state.text,
           ),
           Padding(
-            padding: EdgeInsets.only(top: size.height / 32),
+            padding: EdgeInsets.only(top: size.height / 40),
           ),
           buildSelectLanguageDropDown(size),
           Padding(
@@ -100,8 +101,9 @@ class _TranslateScreenState extends State<TranslateScreen> {
             tolangCode: _value,
           ),
           Padding(
-            padding: EdgeInsets.only(top: size.height / 32),
+            padding: EdgeInsets.only(top: size.height / 16),
           ),
+          TranslatedTextPlaceHolderWidget()
         ],
       ),
     );
