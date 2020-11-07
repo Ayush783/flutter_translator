@@ -1,7 +1,7 @@
 import 'dart:io';
 
 import 'package:image_picker/image_picker.dart';
-import 'package:translator/models/image.dart';
+import 'package:flutter_translator/models/image.dart';
 
 class Capture {
   File image;

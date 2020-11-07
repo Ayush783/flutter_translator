@@ -3,26 +3,26 @@ import 'dart:io';
 
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:translator/sevices/mlkit.dart';
+import 'package:flutter_translator/sevices/mlkit.dart';
 
-part 'bloc_event.dart';
-part 'bloc_state.dart';
+part 'translator_event.dart';
+part 'translator_state.dart';
 
-class BlocBloc extends Bloc<BlocEvent, BlocState> {
-  BlocBloc() : super(BlocInitial());
+class TranslatorBloc extends Bloc<TranslatorEvent, TranslatorState> {
+  TranslatorBloc() : super(TranslatorInitial());
 
   MLKit mlKit = MLKit();
 
   @override
-  Stream<BlocState> mapEventToState(
-    BlocEvent event,
+  Stream<TranslatorState> mapEventToState(
+    TranslatorEvent event,
   ) async* {
-    yield BlocInitial();
+    yield TranslatorInitial();
     if (event is RecogniseText) {
-      yield BlocLoading();
+      yield TranslatorLoading();
       final textResponse = await mlKit.recogniseText(event.image);
       final languageResponse = await mlKit.identifyLanguage(textResponse.text);
-      yield BlocRecognisedText(
+      yield TranslatorRecognisedText(
         textResponse.text,
         languageResponse.language,
         languageResponse.languageCode,

@@ -1,4 +1,4 @@
-name: translator
+name: flutter_translator
 description: A new Flutter project.
 publish_to: "none" # Remove this line if you wish to publish to pub.dev
 version: 1.0.0+1
@@ -16,6 +16,7 @@ dependencies:
   image_picker: ^0.6.7+12
   lottie: ^0.7.0+1
   flutter_language_identification: ^0.1.0
+  translator: ^0.1.5
 
 dev_dependencies:
   flutter_test:

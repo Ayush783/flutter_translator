@@ -1,13 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:translator/models/image.dart';
-import 'package:translator/models/language_response.dart';
-import 'package:translator/screens/translate_screen.dart';
-import 'package:translator/sevices/pick_image.dart';
+import 'package:flutter_translator/models/image.dart';
+import 'package:flutter_translator/screens/translate_screen.dart';
+import 'package:flutter_translator/sevices/pick_image.dart';
 
 import '../appbar.dart';
 import '../const.dart';
-import '../supported_languages.dart';
 
 class HomeScreen extends StatelessWidget {
   @override

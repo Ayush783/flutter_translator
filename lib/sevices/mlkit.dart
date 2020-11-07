@@ -2,9 +2,10 @@ import 'dart:io';
 
 import 'package:firebase_ml_vision/firebase_ml_vision.dart';
 import 'package:flutter_language_identification/flutter_language_identification.dart';
-import 'package:translator/models/language_response.dart';
-import 'package:translator/models/text_response.dart';
-import 'package:translator/supported_languages.dart';
+import 'package:flutter_translator/models/language_response.dart';
+import 'package:flutter_translator/models/text_response.dart';
+import 'package:flutter_translator/models/supported_languages.dart';
+import 'package:translator/translator.dart';
 
 class MLKit {
   final instance = FirebaseVision.instance;
@@ -31,5 +32,9 @@ class MLKit {
       Duration(seconds: 1),
     );
     return LanguageResponse(_lang, supportedLanguages[_lang.toString()], '');
+  }
+
+  Future translateText(String text, String fromLangCode, String toLangCode) {
+    final translator = GoogleTranslator();
   }
 }

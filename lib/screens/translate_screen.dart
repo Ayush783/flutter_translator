@@ -3,8 +3,8 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:translator/bloc/bloc_bloc.dart';
-import 'package:translator/widgets/text_area_widget.dart';
+import 'package:flutter_translator/bloc/translator_bloc.dart';
+import 'package:flutter_translator/widgets/text_area_widget.dart';
 
 import '../appbar.dart';
 import '../const.dart';
@@ -22,7 +22,7 @@ class _TranslateScreenState extends State<TranslateScreen> {
   int _value = 1;
   String _recognisedText;
   // ignore: close_sinks
-  final bloc = BlocBloc();
+  final bloc = TranslatorBloc();
   @override
   void initState() {
     super.initState();
@@ -34,12 +34,12 @@ class _TranslateScreenState extends State<TranslateScreen> {
     final size = MediaQuery.of(context).size;
     return Scaffold(
       appBar: appbar,
-      body: BlocBuilder<BlocBloc, BlocState>(
+      body: BlocBuilder<TranslatorBloc, TranslatorState>(
         cubit: bloc,
         builder: (context, state) {
-          if (state is BlocLoading)
+          if (state is TranslatorLoading)
             return Center(child: CircularProgressIndicator());
-          else if (state is BlocRecognisedText) {
+          else if (state is TranslatorRecognisedText) {
             _recognisedText = state.text;
             return buildBody(size, state);
           } else
@@ -51,7 +51,7 @@ class _TranslateScreenState extends State<TranslateScreen> {
     );
   }
 
-  Padding buildBody(Size size, BlocRecognisedText state) {
+  Padding buildBody(Size size, TranslatorRecognisedText state) {
     return Padding(
       padding: EdgeInsets.only(
           left: size.width / 12, right: size.width / 12, top: size.width / 12),

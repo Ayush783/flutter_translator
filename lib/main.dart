@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:translator/screens/homescreen.dart';
-import 'package:translator/theme.dart';
+import 'package:flutter_translator/screens/homescreen.dart';
+import 'package:flutter_translator/theme.dart';
 
 import 'const.dart';
 

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:translator/supported_languages.dart';
+import 'package:flutter_translator/models/supported_languages.dart';
 
 TextStyle primary =
     TextStyle(fontSize: 18, fontWeight: FontWeight.bold, fontFamily: 'Sen');
