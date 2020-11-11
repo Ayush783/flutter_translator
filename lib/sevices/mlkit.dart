@@ -9,10 +9,9 @@ import 'package:flutter_translator/models/translation_response.dart';
 import 'package:translator/translator.dart';
 
 class MLKit {
-  final instance = FirebaseVision.instance;
-
   //method to recognise text
   Future<TextResponse> recogniseText(File image) async {
+    final instance = FirebaseVision.instance;
     FirebaseVisionImage imageObject = FirebaseVisionImage.fromFile(image);
     final recogniser = instance.textRecognizer();
     final VisionText visionText = await recogniser.processImage(imageObject);
@@ -30,7 +29,7 @@ class MLKit {
       _lang = code;
     });
     await Future.delayed(
-      Duration(seconds: 1),
+      Duration(milliseconds: 100),
     );
     return LanguageResponse(_lang, supportedLanguages[_lang.toString()], '');
   }
@@ -40,7 +39,6 @@ class MLKit {
     final translator = GoogleTranslator();
     final Translation translatedText =
         await translator.translate(text, from: fromLangCode, to: toLangCode);
-    print(translatedText.text);
     return TranslatedText(translatedText.text, '');
   }
 }

@@ -35,7 +35,7 @@ class _TranslateScreenState extends State<TranslateScreen> {
               RecogniseText(widget.image),
             ),
         ),
-        BlocProvider(
+        BlocProvider<TranslatorBloc>(
           create: (context) => TranslatorBloc(),
         )
       ],
@@ -81,7 +81,7 @@ class _TranslateScreenState extends State<TranslateScreen> {
           Padding(
             padding: EdgeInsets.only(top: size.height / 32),
           ),
-          //recognised text placeholder
+          //recognised text placeholder widget
           TextAreaWidget(
             size: size,
             text: state.text,
@@ -103,6 +103,7 @@ class _TranslateScreenState extends State<TranslateScreen> {
           Padding(
             padding: EdgeInsets.only(top: size.height / 16),
           ),
+          //translated text display area
           TranslatedTextPlaceHolderWidget()
         ],
       ),
