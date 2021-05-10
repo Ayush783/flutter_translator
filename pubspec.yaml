@@ -12,7 +12,7 @@ dependencies:
   equatable: ^1.2.5
   firebase_ml_vision: ^0.9.8
   flutter_bloc: ^6.0.6
-  flutter_svg: ^0.19.1
+  flutter_svg: ^0.21.0+1
   image_picker: ^0.6.7+12
   flutter_language_identification: ^0.1.0
   translator: ^0.1.5

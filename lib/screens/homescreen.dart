@@ -59,12 +59,15 @@ class HomeScreen extends StatelessWidget {
         },
         child: Material(
           elevation: 8,
-          borderRadius: BorderRadius.circular(size.width / 12),
+          type: MaterialType.circle,
+          color: Colors.transparent,
           child: Container(
               height: size.height / 11,
               width: size.width / 6,
               decoration: BoxDecoration(
-                  color: primaryColor, borderRadius: BorderRadius.circular(30)),
+                color: primaryColor,
+                shape: BoxShape.circle,
+              ),
               child: Center(
                 child: SvgPicture.asset(
                   'icons/capture.svg',

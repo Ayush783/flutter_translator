@@ -1,6 +1,13 @@
 import 'package:flutter/material.dart';
 
+import 'const.dart';
+
 ThemeData theme = ThemeData(
-  primaryColor: Color(0xff039BE5),
+  primaryColor: primaryColor,
   fontFamily: 'sen',
+  scrollbarTheme: ScrollbarThemeData(
+    thumbColor: MaterialStateProperty.all<Color>(primaryColor),
+    showTrackOnHover: true,
+    radius: Radius.circular(4),
+  ),
 );

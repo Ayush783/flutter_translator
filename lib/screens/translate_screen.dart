@@ -60,8 +60,7 @@ class _TranslateScreenState extends State<TranslateScreen> {
 
   Padding buildBody(Size size, RecognisedText state) {
     return Padding(
-      padding: EdgeInsets.only(
-          left: size.width / 12, right: size.width / 12, top: size.width / 12),
+      padding: EdgeInsets.only(left: 20, right: 20, top: size.width / 12),
       child: Column(
         children: [
           Center(
