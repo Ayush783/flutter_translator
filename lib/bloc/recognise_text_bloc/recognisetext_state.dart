@@ -1,11 +1,6 @@
 part of 'recognisetext_bloc.dart';
 
-abstract class RecogniseTextState extends Equatable {
-  const RecogniseTextState();
-
-  @override
-  List<Object> get props => [];
-}
+abstract class RecogniseTextState {}
 
 class RecogniseTextInitial extends RecogniseTextState {}
 
@@ -20,3 +15,5 @@ class RecognisedText extends RecogniseTextState {
     this.languageCode,
   );
 }
+
+class RecognisingTextFailure extends RecogniseTextState {}

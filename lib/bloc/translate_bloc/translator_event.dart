@@ -1,11 +1,6 @@
 part of 'translator_bloc.dart';
 
-abstract class TranslatorEvent extends Equatable {
-  const TranslatorEvent();
-
-  @override
-  List<Object> get props => [];
-}
+abstract class TranslatorEvent {}
 
 class TranslateText extends TranslatorEvent {
   final String text, fromLangCode, tolangCode;

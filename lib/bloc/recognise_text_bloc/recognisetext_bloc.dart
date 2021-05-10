@@ -2,7 +2,6 @@ import 'dart:async';
 import 'dart:io';
 
 import 'package:bloc/bloc.dart';
-import 'package:equatable/equatable.dart';
 import 'package:flutter_translator/sevices/mlkit.dart';
 
 part 'recognisetext_event.dart';
@@ -22,11 +21,14 @@ class RecogniseTextBloc extends Bloc<RecogniseTextEvent, RecogniseTextState> {
       yield RecognisingText();
       final textResponse = await mlKit.recogniseText(event.image);
       final languageResponse = await mlKit.identifyLanguage(textResponse.text);
-      yield RecognisedText(
-        textResponse.text,
-        languageResponse.language,
-        languageResponse.languageCode,
-      );
+      if (languageResponse.language == null && textResponse.text == null)
+        yield RecognisingTextFailure();
+      else
+        yield RecognisedText(
+          textResponse.text,
+          languageResponse.language,
+          languageResponse.languageCode,
+        );
     }
   }
 }

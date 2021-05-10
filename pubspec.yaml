@@ -9,7 +9,6 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  equatable: ^1.2.5
   firebase_ml_vision: ^0.9.8
   flutter_bloc: ^6.0.6
   flutter_svg: ^0.21.0+1

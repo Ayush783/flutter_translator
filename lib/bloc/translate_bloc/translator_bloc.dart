@@ -1,7 +1,6 @@
 import 'dart:async';
 
 import 'package:bloc/bloc.dart';
-import 'package:equatable/equatable.dart';
 import 'package:flutter_translator/sevices/mlkit.dart';
 
 part 'translator_event.dart';
@@ -21,6 +20,9 @@ class TranslatorBloc extends Bloc<TranslatorEvent, TranslatorState> {
       yield TranslatorTranslatingInProgress();
       final translateResponse = await mlKit.translateText(
           event.text, event.fromLangCode, event.tolangCode);
+      // if (translateResponse.text == null)
+      //   yield TranslatorFailure();
+      // else
       yield TranslatorTranslatedText(translateResponse.text);
     }
   }

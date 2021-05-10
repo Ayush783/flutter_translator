@@ -1,11 +1,6 @@
 part of 'translator_bloc.dart';
 
-abstract class TranslatorState extends Equatable {
-  const TranslatorState();
-
-  @override
-  List<Object> get props => [];
-}
+abstract class TranslatorState {}
 
 class TranslatorInitial extends TranslatorState {}
 
@@ -16,3 +11,5 @@ class TranslatorTranslatedText extends TranslatorState {
 
   TranslatorTranslatedText(this.text);
 }
+
+class TranslatorFailure extends TranslatorState {}
